@@ -8,16 +8,45 @@
     <script src="./redux.min.js"></script>
   </head>
   <body>
+    <div>
+      <button id="button">Incrementar</button>
+    </div>
     <script>
-      const initialState = {
-        nome: "Jean",
-        id: 1,
-      };
+      //constantes
+      const SOMAR = "SOMAR";
+      const INCREMENTAR = "INCREMENTAR";
+
+      //action creator
+      function somar(payload) {
+        return { type: SOMAR, payload };
+      }
+      function incrementar() {
+        return { type: INCREMENTAR };
+      }
+
+      const initialState = 10;
       function reducer(state = initialState, action) {
-        return state;
+        if (action.type === INCREMENTAR) {
+          return state + 1;
+        }
+        if (action.type === SOMAR) {
+          return state + action.payload;
+        } else {
+          return state;
+        }
       }
       const store = Redux.createStore(reducer);
-      const state = store.getState();
+      let state = store.getState();
+
+      store.dispatch(somar(25));
+      store.dispatch(incrementar());
+
+      state = store.getState();
+
+      console.log(state);
+
+      const button = document.getElementById("button");
+      button.addEventListener("click", () => store.dispatch(incrementar()));
     </script>
   </body>
 </html>
