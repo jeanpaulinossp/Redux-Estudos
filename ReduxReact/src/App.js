@@ -1,12 +1,46 @@
 import { useDispatch, useSelector } from "react-redux";
 import { incrementar, reduzir } from "./store/contador";
 import { abrir, fechar } from "./store/modal";
+import { useState } from "react";
+import { login } from "./store/login";
 
 function App() {
   const { contador, modal } = useSelector((state) => state); // usado assim quando usado o CombineReducers
   const dispatch = useDispatch();
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { data } = useSelector((state) => state.login.user);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    dispatch(login({ username, password }));
+  }
+
   return (
     <>
+      <form onSubmit={handleSubmit}>
+        <label style={{ display: "block" }} htmlFor="username">
+          Usuário
+        </label>
+        <input
+          id="username"
+          type="text"
+          value={username}
+          onChange={({ target }) => setUserName(target.value)}
+        />
+        <label style={{ display: "block" }} htmlFor="password">
+          Senha
+        </label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+        />
+        <button>Enviar</button>
+        <p>{data?.email}</p>
+      </form>
       {modal && (
         <>
           <h1>Total: {contador}</h1>
