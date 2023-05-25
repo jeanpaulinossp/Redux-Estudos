@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { incrementar, reduzir } from "./store/contador";
+import { incrementar, reduzir, somar } from "./store/contador";
 import { abrir, fechar } from "./store/modal";
 import { useState } from "react";
 import { login } from "./store/login";
@@ -47,6 +47,7 @@ function App() {
           <button onClick={() => dispatch(incrementar())}>Incrementar</button>
           <button onClick={() => dispatch(reduzir())}>Reduzir</button>
           <button onClick={() => dispatch(fechar())}>Fechar Modal</button>
+          <button onClick={() => dispatch(somar(5))}>Somar 5</button>
         </>
       )}
 
