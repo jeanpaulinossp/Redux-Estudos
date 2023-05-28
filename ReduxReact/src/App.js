@@ -1,14 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { incrementar, reduzir, somar } from "./store/contador";
 import { abrir, fechar } from "./store/modal";
-import { useState } from "react";
-import { login } from "./store/login";
+import { useEffect, useState } from "react";
+import { autoLogin, login } from "./store/login";
 
 function App() {
   const { contador, modal } = useSelector((state) => state); // usado assim quando usado o CombineReducers
   const dispatch = useDispatch();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    dispatch(autoLogin());
+  }, [dispatch]);
 
   const { data } = useSelector((state) => state.login.user);
 

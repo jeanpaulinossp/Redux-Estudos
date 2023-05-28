@@ -21,7 +21,7 @@ const createAsyncSlice = (config) => {
       fetchStarted(state) {
         state.loading = true;
       },
-      fetchSucess(state, action) {
+      fetchSuccess(state, action) {
         state.loading = false;
         state.data = action.payload;
         state.error = action.error;
@@ -34,7 +34,7 @@ const createAsyncSlice = (config) => {
       ...config.reducers,
     },
   });
-  const { fetchStarted, fetchSucess, fetchError } = slice.actions;
+  const { fetchStarted, fetchSuccess, fetchError } = slice.actions;
 
   const asyncAction = (payload) => async (dispatch) => {
     try {
@@ -42,7 +42,7 @@ const createAsyncSlice = (config) => {
       const { url, options } = config.fetchConfig(payload);
       const response = await fetch(url, options);
       const data = await response.json();
-      return dispatch(fetchSucess(data));
+      return dispatch(fetchSuccess(data));
     } catch (error) {
       return dispatch(fetchError(error.message));
     }
