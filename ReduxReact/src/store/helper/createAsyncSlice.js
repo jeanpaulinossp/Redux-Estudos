@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 /**
- * Cria um slice com uma função assincrona
+ * Cria um slice com uma função assíncrona
  * @param {Object} config
  * @param {String} config.name
  * @param {Object} config.initialState
@@ -24,7 +24,7 @@ const createAsyncSlice = (config) => {
       fetchSuccess(state, action) {
         state.loading = false;
         state.data = action.payload;
-        state.error = action.error;
+        state.error = null;
       },
       fetchError(state, action) {
         state.loading = false;
@@ -34,6 +34,7 @@ const createAsyncSlice = (config) => {
       ...config.reducers,
     },
   });
+
   const { fetchStarted, fetchSuccess, fetchError } = slice.actions;
 
   const asyncAction = (payload) => async (dispatch) => {
@@ -47,6 +48,7 @@ const createAsyncSlice = (config) => {
       return dispatch(fetchError(error.message));
     }
   };
+
   return { ...slice, asyncAction };
 };
 

@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Loading from './Helper/Loading';
-import Login from './Login';
-import Photos from './Photos';
+import React from "react";
+import Login from "./Login/Login";
+import Photos from "./Photos";
+import { useSelector } from "react-redux";
+import Loading from "./Loading/Loading";
 
 const Content = () => {
   const { user, token } = useSelector((state) => state.login);

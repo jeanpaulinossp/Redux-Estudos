@@ -1,13 +1,12 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import createAsyncSlice from './helper/createAsyncSlice';
-import getLocalStorage from './helper/getLocalStorage';
-import { removePhotos } from './photos';
+import { combineReducers } from "redux";
+import createAsyncSlice from "../helper/createAsyncSlice";
+import getLocalStorage from "../helper/getLocalStorage";
 
 const token = createAsyncSlice({
-  name: 'token',
+  name: "token",
   initialState: {
     data: {
-      token: getLocalStorage('token', null),
+      token: getLocalStorage("token", null),
     },
   },
   reducers: {
@@ -25,7 +24,7 @@ const token = createAsyncSlice({
           payload,
           meta: {
             localStorage: {
-              key: 'token',
+              key: "token",
               value: payload.token,
             },
           },
@@ -34,11 +33,11 @@ const token = createAsyncSlice({
     },
   },
   fetchConfig: (user) => ({
-    url: 'https://dogsapi.origamid.dev/json/jwt-auth/v1/token',
+    url: "https://dogsapi.origamid.dev/json/jwt-auth/v1/token",
     options: {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     },
@@ -46,18 +45,18 @@ const token = createAsyncSlice({
 });
 
 const user = createAsyncSlice({
-  name: 'user',
+  name: "user",
   reducers: {
     removeUser(state) {
       state.data = null;
     },
   },
   fetchConfig: (token) => ({
-    url: 'https://dogsapi.origamid.dev/json/api/user',
+    url: "https://dogsapi.origamid.dev/json/api/user",
     options: {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: "Bearer " + token,
       },
     },
   }),
@@ -88,6 +87,5 @@ export const autoLogin = () => async (dispatch, getState) => {
 export const userLogout = () => (dispatch) => {
   dispatch(removeUser());
   dispatch(removeToken());
-  dispatch(removePhotos());
-  window.localStorage.removeItem('token');
+  window.localStorage.removeItem("token");
 };

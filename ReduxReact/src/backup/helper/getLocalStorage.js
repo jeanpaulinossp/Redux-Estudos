@@ -1,7 +1,7 @@
 function getLocalStorage(key, initial) {
   try {
     return JSON.parse(window.localStorage.getItem(key));
-  } catch (error) {
+  } catch {
     return initial;
   }
 }
