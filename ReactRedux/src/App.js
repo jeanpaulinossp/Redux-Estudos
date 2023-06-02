@@ -1,27 +1,19 @@
 import { useState } from "react";
+import FormDate from "./components/FormDate";
+import Photos from "./components/Photos";
+import Filter from "./components/Filter";
+import Products from "./components/Products";
+import "./App.css";
 
 function App() {
-  const [partida, setPartida] = useState("");
-  const [retorno, setRetorno] = useState("");
-
+  const [toggle, setToggle] = useState(true);
   return (
     <>
-      <form>
-        <p>
-          <label htmlFor="partida">Partida</label>
-          <input
-            type="date"
-            id="partida"
-            value={partida}
-            onChange={(target) => setPartida(target.value)}
-          />
-        </p>
-
-        <p>
-          <label htmlFor="retorno">Retorno</label>
-          <input type="date" id="retorno" />
-        </p>
-      </form>
+      <Filter />
+      <Products />
+      <FormDate />
+      <button onClick={() => setToggle(!toggle)}>Toggle</button>
+      {toggle && <Photos />}
     </>
   );
 }
