@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import products from "../store/products";
 
 const filterColors = (colors) => (product) =>
   !colors.length || colors.includes(product.color);
